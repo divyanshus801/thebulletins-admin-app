@@ -8,6 +8,7 @@ import { createCategory } from '../helper/apicall';
 const AddCategory = () => {
 
    const [name, setName] = useState("")
+   const [imgLink, setImgLink] = useState("")
    const [error, setError] = useState(false)
    const [success, setSuccess] = useState(false)
 
@@ -15,7 +16,8 @@ const AddCategory = () => {
 
  const handleChange = event => {
     setError("");
-    setName(event.target.value)
+    setName(event.target.value);
+    setImgLink(event.target.value);
  }
 
  const onsubmit = (event) => {
@@ -24,7 +26,7 @@ const AddCategory = () => {
    setSuccess(false);
 
    //backend request fired
-   createCategory(user._id, token, {name})
+   createCategory(user._id, token, {name, imgLink})
    .then(data => {
        if(data.error){
            setError(true)
@@ -34,6 +36,7 @@ const AddCategory = () => {
            setError("");
            setSuccess(true);
            setName("");
+           setImgLink("");
        }
    })
 
@@ -69,6 +72,14 @@ const AddCategory = () => {
             autoFocus
             required
             placeholder="For Ex. Summer " />
+            <p className="lead">Enter Image Link</p>
+            <input type="text"
+            className="form-control my-3"
+            onChange={handleChange}
+            value={imgLink}
+            autoFocus
+            required
+            placeholder="" />
             <button className="btn btn-outline-success" 
             onClick={onsubmit}>
              Create Category
