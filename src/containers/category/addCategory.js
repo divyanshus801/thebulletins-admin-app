@@ -7,36 +7,42 @@ import { createCategory } from '../helper/apicall';
 
 const AddCategory = () => {
 
-   const [name, setName] = useState("")
-   const [imgLink, setImgLink] = useState("")
-   const [error, setError] = useState(false)
-   const [success, setSuccess] = useState(false)
+//    const [name, setName] = useState("")
+//    const [imgLink, setImgLink] = useState("")
+//    const [error, setError] = useState(false)
+//    const [success, setSuccess] = useState(false)
 
+   const [values, setValues] = useState({
+    name: "",
+    imgLink: "",
+    error: false,
+    success: false,
+    
+  });
+
+  const {name, imgLink, error, success} = values;
    const {user, token} = isAuthenticated();
 
- const handleChange = event => {
-    setError("");
-    setName(event.target.value);
-    setImgLink(event.target.value);
- }
+   const handleChange = name => event => {
+    setValues({ ...values, error: "", [name]: event.target.value });
+  };
 
  const onsubmit = (event) => {
    event.preventDefault();
-   setError("");
-   setSuccess(false);
-
+  setValues({...values,error: false, success: false})
    //backend request fired
    createCategory(user._id, token, {name, imgLink})
    .then(data => {
        if(data.error){
-           setError(true)
+        setValues({...values,error: true, success: false})
            
        }else{
-       
-           setError("");
-           setSuccess(true);
-           setName("");
-           setImgLink("");
+        setValues({...values,
+            name: "",
+            imgLink: "",
+            error: false,
+             success: true
+        })
        }
    })
 
