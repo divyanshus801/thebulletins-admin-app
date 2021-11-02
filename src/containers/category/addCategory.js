@@ -73,7 +73,7 @@ const AddCategory = () => {
             <p className="lead">Enter the category</p>
             <input type="text"
             className="form-control my-3"
-            onChange={handleChange}
+            onChange={handleChange("name")}
             value={name}
             autoFocus
             required
@@ -81,7 +81,7 @@ const AddCategory = () => {
             <p className="lead">Enter Image Link</p>
             <input type="text"
             className="form-control my-3"
-            onChange={handleChange}
+            onChange={handleChange("imgLink")}
             value={imgLink}
             autoFocus
             required
